@@ -80,14 +80,12 @@ class MainActivity : AppCompatActivity() {
         /* use your url project and token */
         val url = ""
 
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             try {
                 room.connect(url, token)
                 room.localParticipant.setMicrophoneEnabled(true)
                 _connected.value = true
             } catch (e: Exception) {
-                Log.d("gabniel-state", "connectToRoom: ${e.message}")
-                Toast.makeText(applicationContext, e.message, Toast.LENGTH_SHORT).show()
                 e.printStackTrace()
                 _connected.value = false
             }
